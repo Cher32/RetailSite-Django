@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Retail Catalogue</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+    
+    /* Remove the jumbotron's default bottom margin */
+     .jumbotron {
+      margin-bottom: 0;
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>Welcome to Our Catalogue</h1>
+    <p><i>Self-Confidence is Your Best Outfit, Rock it!</i></p>
+  </div>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+     
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+       <li><a href="{% url 'index' %}">Home</a></li>    
+        <li><a href="{% url 'Products' %}">Products</a></li>  
+        <li><a href="{% url 'Contact' %}">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="{% url 'Signin' %}"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+       
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid align-center" >
+<div class="container">
+<div class="main">
+<h2>Please Login </h2>
+<form id="form_id" method="post" name="myform">
+<label>User Name :</label>
+<input type="text" name="username" id="username"/>
+<label>Password :</label>
+<input type="password" name="password" id="password"/>
+<input type="button" value="Login" id="submit" onclick="validate()"/>
+</form>
+<span><b class="note">Note : </b>Use following username and password. <br/><b class="valid">User Name : Louise<br/>Password : Rennick</b></span>
+</div>
+</div>
+  
+</div>
+
+<br>
+<br>
+<script>
+var attempt = 3; // Variable to count number of attempts.
+// Below function Executes on click of login button.
+function validate(){
+var username = document.getElementById("username").value;
+var password = document.getElementById("password").value;
+if ( username == "Louise" && password == "Rennick"){
+alert ("Login successfully");
+window.location = "{% url 'Products' %}"; // Redirecting to other page.
+return false;
+}
+else{
+attempt --;// Decrementing by one.
+alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+if( attempt == 0){
+document.getElementById("username").disabled = true;
+document.getElementById("password").disabled = true;
+document.getElementById("submit").disabled = true;
+return false;
+}
+}
+}
+</script>
+<footer class="container-fluid text-center">
+  <p>Content copyright: Chase Graphics 2016</p>
+  <form class="form-inline">Get updates:
+    <input type="email" class="form-control" size="50" placeholder="Email Address">
+    <a href="{% url 'Signin' %}"><button type="button" class="btn btn-danger">Sign Up</button></a>
+  </form>
+</footer>
+
+</body>
+</html>
+
